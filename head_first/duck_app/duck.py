@@ -47,9 +47,9 @@ class Squeak(QuackBehavior):
 class Duck:
     flyBehavior = None
     quackBehavior = None
-    def __init__(self, flyBehavior, quackBehavior):
-        self.flyBehavior = flyBehavior()
-        self.quackBehavior = quackBehavior()
+    def __init__(self):
+        pass
+        
     def PerformFly(self):
         self.flyBehavior.fly()
 
@@ -58,6 +58,12 @@ class Duck:
 
     def swim(self):
         print("all ducks can be swim")
+    
+    def SetFlyingBehaviour(self, flyingBehavior):
+        self.flyBehavior = flyingBehavior()
+    
+    def SetQuackBehaviour(self, quackBehavior):
+        self.quackBehavior = quackBehavior()
 
 
 
@@ -66,20 +72,33 @@ class Duck:
 class MallarDuck(Duck):
 
     def __init__(self, flyBehavior, quackBehavior):
-        super(MallarDuck,self).__init__(flyBehavior, quackBehavior)
-        
+        self.flyBehavior = flyBehavior()
+        self.quackBehavior = quackBehavior()
+        # super(MallarDuck,self).__init__(flyBehavior, quackBehavior)
+    def SetFlyingBehaviour(self, flyingBehavior):
+            return super(MallarDuck, self).SetFlyingBehaviour(flyingBehavior)
+    def SetQuackBehaviour(self, quackBehavior):
+            return super(MallarDuck, self).SetQuackBehaviour(quackBehavior)
 
 class NormalDuck(Duck):
     def __init__(self, flyBehavior, quackBehavior):
-        super(NormalDuck,self).__init__(flyBehavior, quackBehavior)
+        self.flyBehavior = flyBehavior()
+        self.quackBehavior = quackBehavior()
+        # super(NormalDuck,self).__init__(flyBehavior, quackBehavior)
 
 
 
-obj = MallarDuck(FlyNoWay, MuteQuack)
-obj.PerformQuack()
-obj.PerformFly()
+# obj = MallarDuck(FlyNoWay, MuteQuack)
+# obj.PerformQuack()
+# obj.PerformFly()
 
 obj2 = NormalDuck(FlyWithWings, SpeakQuack)
+obj2.PerformQuack()
+obj2.PerformFly()
+
+obj2.SetFlyingBehaviour(FlyNoWay)
+obj2.SetQuackBehaviour(MuteQuack)
+print("<============After changing Behavior=============>")
 obj2.PerformQuack()
 obj2.PerformFly()
 
